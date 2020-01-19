@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:novel_game/Opciones.dart';
 
 import './Historia.dart';
+import './Opciones.dart';
 
 void main() => runApp(MyApp());
 
@@ -31,7 +33,10 @@ class _MyHomeState extends State<MyHome> {
             textAlign: TextAlign.center,
           ),
         ),
-        body: Historia(),
+        body: Center(
+          child: Historia(),
+        ),
+        bottomNavigationBar: Opciones(),
       ),
     );
   }
