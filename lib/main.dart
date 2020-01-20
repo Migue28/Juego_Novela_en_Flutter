@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:novel_game/Opciones.dart';
 
-import './Historia.dart';
-import './Opciones.dart';
+import './historia.dart';
+import './opciones.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  static const String _title = 'Novelazao V2.1';
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Novela',
+      title: _title,
       home: MyHome(),
     );
   }
@@ -22,6 +23,21 @@ class MyHome extends StatefulWidget {
 }
 
 class _MyHomeState extends State<MyHome> {
+  String titulo = 'Default';
+  int _selectedIndex = 0;
+
+  static List<Widget> _widgetOptions = <Widget>[
+    Historia('Index 0'),
+    Historia('Index 1'),
+    Historia('Index 2')
+  ];
+
+  void cambiarTitulo() {
+    setState(() {
+      titulo = 'Nuevo titulo';
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,14 +45,24 @@ class _MyHomeState extends State<MyHome> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            'Novelaza',
+            titulo,
             textAlign: TextAlign.center,
           ),
         ),
         body: Center(
-          child: Historia(),
+          child: Column(children: <Widget>[
+            Historia('Historia Default'),
+            RaisedButton(
+              child: Text('Nombre'),
+              onPressed: cambiarTitulo,
+            ),
+            _widgetOptions.elementAt(_selectedIndex),
+          ]),
         ),
-        bottomNavigationBar: Opciones(),
+        bottomNavigationBar: Container(
+          child: Opciones(_selectedIndex),
+          
+        ),
       ),
     );
   }
